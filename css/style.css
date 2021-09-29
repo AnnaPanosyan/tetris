@@ -5,12 +5,13 @@ padding: 0;
 }
 body{
     background-color: cornflowerblue;
+  
 }
 .main{
    width: 320px;
    height: 620px;
    background-color: cornflowerblue;
-   margin: 100px auto 0;
+   margin:0 20px 10px 293px;
    font-size: 0;
    border: 10px solid white;
 }
@@ -19,12 +20,22 @@ body{
   height: 30px;
   display: inline-block;
   border: 1px solid white;
-  display: inline-block;
+  
 }
+.gameScore{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+  width: 200px;
+  height: 100px;
+  border: 10px solid white;
+  margin:40px 80px -68px 90px;
+  color: aliceblue;
+}
+
 .moving{
-  background-color: violet;
+  background-color: rgb(231, 213, 231);
   }
   .fix{
-    background-color: aqua;  
+    background-color: rgb(69, 76, 117);  
   }
   
