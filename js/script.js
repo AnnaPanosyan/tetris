@@ -125,7 +125,7 @@ function rotete() {
 }
 
 function removeLines() {
-  let fillLines=0
+  let fillLines = 0;
   let linesFull = true;
   for (let i = 0; i < field.length; i++) {
     for (let j = 0; j < field[i].length; j++) {
@@ -137,11 +137,11 @@ function removeLines() {
     if (linesFull) {
       field.splice(i, 1);
       field.splice(0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-      fillLines+=1;
+      score += 10;
     }
     linesFull = true;
   }
-  score+=10;
+
   scoreEl.innerHTML = score;
 }
 
@@ -189,11 +189,6 @@ function hasmove() {
   }
   return false;
 }
-// function scorePoints(count=0){
-//    if(removeLines()){
-//      count+=1
-//  }
-// }
 
 function fix() {
   for (let i = 0; i < field.length; i++) {
@@ -209,10 +204,12 @@ function moveCellDown() {
   if (hasmove()) {
     activeCell.y -= 1;
     fix();
-    removeActiveCell();
+    removeLines();
     activeCell.shape = getNewCell();
+    activeCell.x = Math.floor(
+      (field[0].length - activeCell.shape[0].length) / 2
+    );
     activeCell.y = 0;
-    
   }
 }
 
