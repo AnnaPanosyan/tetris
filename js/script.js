@@ -1,8 +1,8 @@
 let main = document.querySelector(".main");
 let field = [
-  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -33,6 +33,39 @@ let activeCell = {
   ],
 };
 
+let figures = {
+  O: [
+    [1, 1],
+    [1, 1],
+  ],
+  I: [
+    [0, 0, 0, 0],
+    [1, 1, 1, 1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  S: [
+    [0, 1, 1],
+    [1, 1, 0],
+    [0, 0, 0],
+  ],
+  Z: [
+    [1, 1, 0],
+    [0, 1, 1],
+    [0, 0, 0],
+  ],
+  L: [
+    [1, 0, 0],
+    [1, 1, 1],
+    [0, 0, 0],
+  ],
+  
+  T: [
+    [1, 1, 1],  
+    [0, 1, 0],  
+    [0, 0, 0],  
+  ],
+};
 function draw() {
   let cellInnerHTML = "";
   for (let i = 0; i < field.length; i++) {
@@ -120,6 +153,11 @@ function updateActiveCell() {
     }
   }
 }
+function getNewCell(){
+  let prevFigures ="OIZSTL";
+ let rand= Math.floor(Math.random()*6)
+    return figures[prevFigures[rand]]
+}
 function hasmove(){
   for (let y = 0; y < activeCell.shape.length; y++) {
     for (let x = 0; x < activeCell.shape[y].length; x++){
@@ -149,6 +187,15 @@ function fix() {
     }
   }
 }
+function moveCellDown(){
+  activeCell.y += 1;
+  if(hasmove()){
+    activeCell.y -= 1;
+    fix() ;
+    activeCell.shape=getNewCell();
+    activeCell.y = 0;
+  }
+}
 document.addEventListener("keydown", function (ev) {
   if (ev.key === "ArrowLeft") {
     activeCell.x -= 1;
@@ -161,12 +208,7 @@ document.addEventListener("keydown", function (ev) {
       activeCell.x -= 1;
     }
   } else if (ev.key === "ArrowDown") {
-    activeCell.y += 1;
-    if(hasmove()){
-      activeCell.y -= 1;
-      fix() ;
-      activeCell.y = 0;
-    }
+    moveCellDown()
   }else if (ev.key === "ArrowUp") {
     rotete()
     }
@@ -174,62 +216,12 @@ document.addEventListener("keydown", function (ev) {
   draw();
 });
 updateActiveCell();
-draw();
+  draw();
 
-// function goLeft() {
-//   if (canGoLeft()) {
-//     for (let i = field.length - 1; i >= 0; i--) {
-//       for (let j = 0; j < field[i].length; j++) {
-//         if (field[i][j] === 1) {
-//           field[i][j - 1] = 1;
-//           field[i][j] = 0;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// function canGoLeft() {
-//   for (let i = 0; i < field.length; i++) {
-//     for (let j = 0; j < field[i].length; j++) {
-//       if (field[i][j] === 1) {
-//         if (j === 0 || field[i + 1][j] === 2) {
-//           return false;
-//         }
-//       }
-//     }
-//   }
-//   return true;
-// }
-
-// function goRight() {
-//   if (canGoRight()) {
-//     for (let i = field.length - 1; i >= 0; i--) {
-//       for (let j = field[i].length - 1; j >= 0; j--) {
-//         if (field[i][j] === 1) {
-//           field[i][j + 1] = 1;
-//           field[i][j] = 0;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// function canGoRight() {
-//   for (let i = 0; i < field.length; i++) {
-//     for (let j = 0; j < field[i].length; j++) {
-//       if (field[i][j] === 1) {
-//         if (j === field[i].length - 1 || field[i + 1][j] === 2) {
-//           return false;
-//         }
-//       }
-//     }
-//   }
-//   return true;
-// }
-// function startGame() {
-//   moveDown();
-//   draw();
-//   setTimeout(startGame, 500);
-// }
-// setTimeout(startGame, 500);
+function startGame() {
+  moveCellDown()
+  updateActiveCell();
+  draw();
+  setTimeout(startGame, 500);
+}
+setTimeout(startGame, 500);
