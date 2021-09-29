@@ -1,6 +1,7 @@
 let main = document.querySelector(".main");
 let scoreEl = document.querySelector(".score");
 let levelEl = document.querySelector(".level");
+
 let score = 0;
 let level=0;
 let speed=500;

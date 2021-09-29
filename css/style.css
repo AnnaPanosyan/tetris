@@ -11,7 +11,7 @@
      width: 320px;
      height: 620px;
      background-color: rgb(96, 122, 170);
-     margin:0 20px 10px 293px;
+     margin:26px 400px;
      font-size: 0;
      border: 10px solid white;
   }
@@ -28,10 +28,29 @@
     width: 200px;
     height: 100px;
     border: 10px solid white;
-    margin:40px 80px -68px 90px;
+    margin:27px 47px -117px 94px;
     color: aliceblue;
   }
-  
+  .pause{
+    width: 100px;
+    height: 30px;
+     border: aliceblue;
+     background-color: rgb(239, 242, 245);
+     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+     
+  }
+  .button{
+    margin:10px 450px;
+    
+  }
+  .resume{
+    width: 100px;
+    height: 30px;
+    border: aliceblue;
+    background-color: rgb(239, 242, 245);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+  }
   .moving{
     background-color: rgb(240, 182, 222);
     }
