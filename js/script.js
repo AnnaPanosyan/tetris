@@ -89,40 +89,40 @@ function draw() {
 }
 draw();
 
-function moveDown() {
-  if (canMoveDown()) {
-    for (let i = field.length - 1; i >= 0; i--) {
-      for (let j = 0; j < field[i].length; j++) {
-        if (field[i][j] === 1) {
-          field[i + 1][j] = 1;
-          field[i][j] = 0;
-        }
-      }
-    }
-  } else {
-    fix();
-  }
-}
+// function moveDown() {
+//   if (canMoveDown()) {
+//     for (let i = field.length - 1; i >= 0; i--) {
+//       for (let j = 0; j < field[i].length; j++) {
+//         if (field[i][j] === 1) {
+//           field[i + 1][j] = 1;
+//           field[i][j] = 0;
+//         }
+//       }
+//     }
+//   } else {
+//     fix();
+//   }
+// }
 
-function canMoveDown() {
-  for (let i = 0; i < field.length; i++) {
-    for (let j = 0; j < field[i].length; j++) {
-      if (field[i][j] === 1) {
-        if (i === field.length - 1 || field[i + 1][j] === 2) {
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-}
+// function canMoveDown() {
+//   for (let i = 0; i < field.length; i++) {
+//     for (let j = 0; j < field[i].length; j++) {
+//       if (field[i][j] === 1) {
+//         if (i === field.length - 1 || field[i + 1][j] === 2) {
+//           return false;
+//         }
+//       }
+//     }
+//   }
+//   return true;
+// }
 
 function rotete() {
   let prevactiv = activeCell.shape;
   activeCell.shape = activeCell.shape[0].map((valeu, index) =>
     activeCell.shape.map((row) => row[index]).reverse()
   );
-  if (hasmove()) {
+  if (hasMove()) {
     activeCell.shape = prevactiv;
   }
 }
@@ -147,14 +147,14 @@ function removeLines() {
 
   scoreEl.innerHTML = score;
 }
-function  countlevel() {
+function  countLevel() {
   if(score >= 50){
      level += 1;
      score = 0;
+     scoreEl.innerHTML = score;
+     levelEl.innerHTML = level;
+     speed-=100;
   }
-  scoreEl.innerHTML = score;
-  levelEl.innerHTML = level;
-  speed-=100;
 }
 function removeActiveCell() {
   for (let i = 0; i < field.length; i++) {
@@ -185,7 +185,7 @@ function getNewCell() {
   return newCell;
 }
 
-function hasmove() {
+function hasMove() {
   for (let y = 0; y < activeCell.shape.length; y++) {
     for (let x = 0; x < activeCell.shape[y].length; x++) {
       if (
@@ -213,11 +213,11 @@ function fix() {
 
 function moveCellDown() {
   activeCell.y += 1;
-  if (hasmove()) {
+  if (hasMove()) {
     activeCell.y -= 1;
     fix();
     removeLines();
-    countlevel();
+    countLevel();
     activeCell.shape = getNewCell();
     activeCell.x = Math.floor(
       (field[0].length - activeCell.shape[0].length) / 2
@@ -229,12 +229,12 @@ function moveCellDown() {
 document.addEventListener("keydown", function (ev) {
   if (ev.key === "ArrowLeft") {
     activeCell.x -= 1;
-    if (hasmove()) {
+    if (hasMove()) {
       activeCell.x += 1;
     }
   } else if (ev.key === "ArrowRight") {
     activeCell.x += 1;
-    if (hasmove()) {
+    if (hasMove()) {
       activeCell.x -= 1;
     }
   } else if (ev.key === "ArrowDown") {
