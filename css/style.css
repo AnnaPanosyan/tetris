@@ -1,0 +1,30 @@
+*{
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body{
+    background-color: cornflowerblue;
+}
+.main{
+   width: 320px;
+   height: 620px;
+   background-color: cornflowerblue;
+   margin: 100px auto 0;
+   font-size: 0;
+   border: 10px solid white;
+}
+.cell {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border: 1px solid white;
+  display: inline-block;
+}
+.moving{
+  background-color: violet;
+  }
+  .fix{
+    background-color: aqua;  
+  }
+  
