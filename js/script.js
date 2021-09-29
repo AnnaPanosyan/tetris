@@ -1,6 +1,9 @@
 let main = document.querySelector(".main");
 let scoreEl = document.querySelector(".score");
+let levelEl = document.querySelector(".level");
 let score = 0;
+let level=0;
+let speed=500;
 let field = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -125,7 +128,6 @@ function rotete() {
 }
 
 function removeLines() {
-  let fillLines = 0;
   let linesFull = true;
   for (let i = 0; i < field.length; i++) {
     for (let j = 0; j < field[i].length; j++) {
@@ -138,13 +140,22 @@ function removeLines() {
       field.splice(i, 1);
       field.splice(0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       score += 10;
+     
     }
     linesFull = true;
   }
 
   scoreEl.innerHTML = score;
 }
-
+function  countlevel() {
+  if(score >= 50){
+     level += 1;
+     score = 0;
+  }
+  scoreEl.innerHTML = score;
+  levelEl.innerHTML = level;
+  speed-=100;
+}
 function removeActiveCell() {
   for (let i = 0; i < field.length; i++) {
     for (let j = 0; j < field[i].length; j++) {
@@ -199,12 +210,14 @@ function fix() {
     }
   }
 }
+
 function moveCellDown() {
   activeCell.y += 1;
   if (hasmove()) {
     activeCell.y -= 1;
     fix();
     removeLines();
+    countlevel();
     activeCell.shape = getNewCell();
     activeCell.x = Math.floor(
       (field[0].length - activeCell.shape[0].length) / 2
@@ -239,6 +252,6 @@ function startGame() {
   moveCellDown();
   updateActiveCell();
   draw();
-  setTimeout(startGame, 300);
+  setTimeout(startGame, 500);
 }
-setTimeout(startGame, 300);
+setTimeout(startGame, 500);
