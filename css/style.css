@@ -1,41 +1,42 @@
 *{
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-}
-body{
-    background-color: cornflowerblue;
-  
-}
-.main{
-   width: 320px;
-   height: 620px;
-   background-color: cornflowerblue;
-   margin:0 20px 10px 293px;
-   font-size: 0;
-   border: 10px solid white;
-}
-.cell {
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  border: 1px solid white;
-  
-}
-.gameScore{
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
-  width: 200px;
-  height: 100px;
-  border: 10px solid white;
-  margin:40px 80px -68px 90px;
-  color: aliceblue;
-}
-
-.moving{
-  background-color: rgb(231, 213, 231);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   }
-  .fix{
-    background-color: rgb(69, 76, 117);  
+  body{
+      background-color: rgb(96, 122, 170);
+    
   }
+  .main{
+     width: 320px;
+     height: 620px;
+     background-color: rgb(96, 122, 170);
+     margin:0 20px 10px 293px;
+     font-size: 0;
+     border: 10px solid white;
+  }
+  .cell {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border: 1px solid white;
+    
+  }
+  .gameScore{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30px;
+    width: 200px;
+    height: 100px;
+    border: 10px solid white;
+    margin:40px 80px -68px 90px;
+    color: aliceblue;
+  }
+  
+  .moving{
+    background-color: rgb(231, 213, 231);
+    }
+    .fix{
+      background-color: rgb(69, 76, 117);  
+    }
+    
   

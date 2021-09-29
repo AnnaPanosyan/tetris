@@ -252,6 +252,6 @@ function startGame() {
   moveCellDown();
   updateActiveCell();
   draw();
-  setTimeout(startGame, 500);
+  setTimeout(startGame, speed);
 }
-setTimeout(startGame, 500);
+setTimeout(startGame, speed);
