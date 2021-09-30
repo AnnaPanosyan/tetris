@@ -1,11 +1,12 @@
 let main = document.querySelector(".main");
 let scoreEl = document.querySelector(".score");
 let levelEl = document.querySelector(".level");
-let pause=document.querySelector(".pause");
-let resume=document.querySelector(".resume");
+let pause = document.querySelector(".pause");
+let start = document.querySelector(".start");
 let score = 0;
-let level=0;
-let speed=500;
+let level = 0;
+let speed = 500;
+let isPaused = false;
 let field = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -142,20 +143,19 @@ function removeLines() {
       field.splice(i, 1);
       field.splice(0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       score += 10;
-     
     }
     linesFull = true;
   }
 
   scoreEl.innerHTML = score;
 }
-function  countLevel() {
-  if(score >= 50){
-     level += 1;
-     score = 0;
-     scoreEl.innerHTML = score;
-     levelEl.innerHTML = level;
-     speed-=100;
+function countLevel() {
+  if (score >= 50) {
+    level += 1;
+    score = 0;
+    scoreEl.innerHTML = score;
+    levelEl.innerHTML = level;
+    speed -= 100;
   }
 }
 function removeActiveCell() {
@@ -214,17 +214,22 @@ function fix() {
 }
 
 function moveCellDown() {
-  activeCell.y += 1;
-  if (hasMove()) {
-    activeCell.y -= 1;
-    fix();
-    removeLines();
-    countLevel();
-    activeCell.shape = getNewCell();
-    activeCell.x = Math.floor(
-      (field[0].length - activeCell.shape[0].length) / 2
-    );
-    activeCell.y = 0;
+  if (!isPaused) {
+    activeCell.y += 1;
+    if (hasMove()) {
+      activeCell.y -= 1;
+      fix();
+      removeLines();
+      countLevel();
+      activeCell.shape = getNewCell();
+      activeCell.x = Math.floor(
+        (field[0].length - activeCell.shape[0].length) / 2
+      );
+      activeCell.y = 0;
+      if (hasMove()) {
+        alert("Game over");
+      }
+    }
   }
 }
 
@@ -246,6 +251,14 @@ document.addEventListener("keydown", function (ev) {
   }
   updateActiveCell();
   draw();
+});
+pause.addEventListener("click", (e) => {
+  if (e.target.innerHTML === "Pause") {
+    e.target.innerHTML = "Keep playing";
+  } else {
+    e.target.innerHTML = "Pause";
+  }
+  isPaused = !isPaused;
 });
 updateActiveCell();
 draw();
