@@ -3,10 +3,13 @@ let scoreEl = document.querySelector(".score");
 let levelEl = document.querySelector(".level");
 let pause = document.querySelector(".pause");
 let start = document.querySelector(".start");
+let gameOver = document.querySelector(".gameOver");
+
 let score = 0;
 let level = 0;
 let speed = 500;
 let isPaused = false;
+let gameTimer;
 let field = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -91,35 +94,6 @@ function draw() {
   main.innerHTML = cellInnerHTML;
 }
 draw();
-
-// function moveDown() {
-//   if (canMoveDown()) {
-//     for (let i = field.length - 1; i >= 0; i--) {
-//       for (let j = 0; j < field[i].length; j++) {
-//         if (field[i][j] === 1) {
-//           field[i + 1][j] = 1;
-//           field[i][j] = 0;
-//         }
-//       }
-//     }
-//   } else {
-//     fix();
-//   }
-// }
-
-// function canMoveDown() {
-//   for (let i = 0; i < field.length; i++) {
-//     for (let j = 0; j < field[i].length; j++) {
-//       if (field[i][j] === 1) {
-//         if (i === field.length - 1 || field[i + 1][j] === 2) {
-//           return false;
-//         }
-//       }
-//     }
-//   }
-//   return true;
-// }
-
 function rotete() {
   let prevactiv = activeCell.shape;
   activeCell.shape = activeCell.shape[0].map((valeu, index) =>
@@ -212,23 +186,47 @@ function fix() {
     }
   }
 }
-
+function reset() {
+  isPaused = false;
+  clearTimeout(gameTimer);
+  field = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ];
+  gameOver.style.display = "block";
+}
 function moveCellDown() {
-  if (!isPaused) {
-    activeCell.y += 1;
+  activeCell.y += 1;
+  if (hasMove()) {
+    activeCell.y -= 1;
+    fix();
+    removeLines();
+    countLevel();
+    activeCell.shape = getNewCell();
+    activeCell.x = Math.floor(
+      (field[0].length - activeCell.shape[0].length) / 2
+    );
+    activeCell.y = 0;
     if (hasMove()) {
-      activeCell.y -= 1;
-      fix();
-      removeLines();
-      countLevel();
-      activeCell.shape = getNewCell();
-      activeCell.x = Math.floor(
-        (field[0].length - activeCell.shape[0].length) / 2
-      );
-      activeCell.y = 0;
-      if (hasMove()) {
-        alert("Game over");
-      }
+      reset();
     }
   }
 }
@@ -255,18 +253,24 @@ document.addEventListener("keydown", function (ev) {
 pause.addEventListener("click", (e) => {
   if (e.target.innerHTML === "Pause") {
     e.target.innerHTML = "Keep playing";
+    gameTimer = setTimeout(startGame, speed);
+    clearTimeout(gameTimer);
   } else {
     e.target.innerHTML = "Pause";
   }
   isPaused = !isPaused;
 });
-updateActiveCell();
+start.addEventListener("click", (e) => {
+  gameTimer = setTimeout(startGame, speed);
+});
+
 draw();
 
 function startGame() {
-  moveCellDown();
-  updateActiveCell();
-  draw();
-  setTimeout(startGame, speed);
+  if (!isPaused) {
+    moveCellDown();
+    updateActiveCell();
+    draw();
+  }
+  gameTimer = setTimeout(startGame, speed);
 }
-setTimeout(startGame, speed);
