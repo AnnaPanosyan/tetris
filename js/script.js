@@ -4,7 +4,7 @@ let levelEl = document.querySelector(".level");
 let pause = document.querySelector(".pause");
 let start = document.querySelector(".start");
 let gameOver = document.querySelector(".gameOver");
-
+let moving = document.querySelector(".moving");
 let score = 0;
 let level = 0;
 let speed = 500;
@@ -211,7 +211,6 @@ function reset() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
-  gameOver.style.display = "block";
 }
 function moveCellDown() {
   activeCell.y += 1;
@@ -227,6 +226,7 @@ function moveCellDown() {
     activeCell.y = 0;
     if (hasMove()) {
       reset();
+      gameOver.style.display = "block";
     }
   }
 }
@@ -260,14 +260,23 @@ pause.addEventListener("click", (e) => {
   }
   isPaused = !isPaused;
 });
+
 start.addEventListener("click", (e) => {
-  gameTimer = setTimeout(startGame, speed);
+  gameOver.style.display = "none";
+  score = 0;
+  level = 0;
+  speed = 500;
+  scoreEl.innerHTML = 0;
+  levelEl.innerHTML = 0;
+  reset();
+  startGame();
+  draw();
 });
 
 draw();
 
 function startGame() {
-  if (!isPaused) {
+  if (!isPaused && gameOver.style.display !== "block") {
     moveCellDown();
     updateActiveCell();
     draw();

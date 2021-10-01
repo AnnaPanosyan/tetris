@@ -11,7 +11,7 @@
      width: 320px;
      height: 620px;
      background-color: rgb(96, 122, 170);
-     margin:20px 400px;
+     margin:20px 350px;
      font-size: 0;
      border: 10px solid white;
   }
@@ -60,12 +60,14 @@
     .pause:hover{
       background-color: rgb(187, 180, 169);
     }
-    .resume:hover{
+    .start:hover{
       background-color: rgb(187, 180, 169);
     }
     .gameOver{
       color: red;
-      font-size: 80px;
-      font-family: monospace;
+      font-size: 50px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
       display: none;
+      position: absolute;
+      margin: 259px -57px;
     }
